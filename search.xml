@@ -15,6 +15,82 @@
     </entry>
     
     
+    
+    <entry>
+      <title>CDN加速是什么？</title>
+      <link href="2019/09/27/cdn-jia-su-shi-shi-me/"/>
+      <url>2019/09/27/cdn-jia-su-shi-shi-me/</url>
+      
+        <content type="html"><![CDATA[<p>##CDN是什么？<br>CDN全称Content Delivery Network，即内容分发网络。其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。  </p><p>通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。  </p><p>CND加速主要是加速静态资源，如网站上面上传的图片、媒体，以及引入的一些Js、css等文件。  </p><p>CND加速需要依靠各个网络节点，例如我在山东登录某平台，我的朋友在北京登录同一平台，这个平台CDN服务器分布在全国范围，会从最近的节点返回资源，这是核心。我在山东会以山东最靠近我的节点回应我，我朋友在北京，会从北京最靠近我朋友的节点回应他。  </p><p>##为什么网站一定要使用CDN？CDN的主要特点有五个：  </p><p>###(1)节省骨干网带宽，减少带宽需求量：  </p><p>如果网站没有使用CDN，如果在同一时间涌入大量的流量，那么网站就会很可能会宕机。使用CDN之后，可以减少网站宕机的情况，同时你的网站可以接收更多的流量。  </p><p>###(2)提供服务器端加速，解决由于用户访问量大造成的服务器过载问题：  </p><p>一个网站，他的内容基本都是保存在服务器本地上的，而服务器上的带宽和性能有限，当我们的网站有着大量的用户访问时，服务器的带宽和性能一旦负荷不起如此多的用户访问时，服务器就会宕机，网站就无法访问，这也是DDOS攻击的雏形。为了我们的网站可以接受更多用户的访问，也为了可以抵御更高流量的DDOS攻击，所以我们需要配置CDN加速。  </p><p>###(3)服务商能使用Web Cache技术在本地缓存用户访问过的Web页面和对象，实现相同对象的访问无须占用主干的出口带宽，并提高用户访问因特网页面的相应时间的需求；   </p><p>###(4)能克服网站分布不均的问题，并且能降低网站自身建设和维护成本：  </p><p>很多网站使用VPS来托管网站，而很多VPS是有带宽限制的，使用CDN能减少成本。使用CDN加速之后你的文件是被存储到不同的服务器上，所以能减少你因为带宽而产生的费用。  </p><p>###(5)降低“通信风暴”的影响，提高网络访问的稳定性。   </p><hr>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>四次挥手过程理解</title>
+      <link href="2019/09/23/si-ci-hui-shou-guo-cheng-li-jie/"/>
+      <url>2019/09/23/si-ci-hui-shou-guo-cheng-li-jie/</url>
+      
+        <content type="html"><![CDATA[<p>1）客户端进程发出连接释放报文，并且停止发送数据。释放数据报文首部，FIN=1，其序列号为seq=u（等于前面已经传送过来的数据的最后一个字节的序号加1），此时，客户端进入FIN-WAIT-1（终止等待1）状态。 TCP规定，FIN报文段即使不携带数据，也要消耗一个序号。  </p><p>2）服务器收到连接释放报文，发出确认报文，ACK=1，ack=u+1，并且带上自己的序列号seq=v，此时，服务端就进入了CLOSE-WAIT（关闭等待）状态。TCP服务器通知高层的应用进程，客户端向服务器的方向就释放了，这时候处于半关闭状态，即客户端已经没有数据要发送了，但是服务器若发送数据，客户端依然要接受。这个状态还要持续一段时间，也就是整个CLOSE-WAIT状态持续的时间。  </p><p>3）客户端收到服务器的确认请求后，此时，客户端就进入FIN-WAIT-2（终止等待2）状态，等待服务器发送连接释放报文（在这之前还需要接受服务器发送的最后的数据）。  </p><p>4）服务器将最后的数据发送完毕后，就向客户端发送连接释放报文，FIN=1，ack=u+1，由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq=w，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认。  </p><p>5）客户端收到服务器的连接释放报文后，必须发出确认，ACK=1，ack=w+1，而自己的序列号是seq=u+1，此时，客户端就进入了TIME-WAIT（时间等待）状态。注意此时TCP连接还没有释放，必须经过2∗∗MSL（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才进入CLOSED状态。  </p><h2 id="6）服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。"><a href="#6）服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。" class="headerlink" title="6）服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。"></a>6）服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。</h2>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>“三次握手过程理解”</title>
+      <link href="2019/09/23/san-ci-wo-shou-guo-cheng-li-jie/"/>
+      <url>2019/09/23/san-ci-wo-shou-guo-cheng-li-jie/</url>
+      
+        <content type="html"><![CDATA[<p>第一次握手：建立连接时，客户端发送syn包（syn=x）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。  </p><p>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=x+1），同时自己也发送一个SYN包（syn=y），即SYN+ACK包，此时服务器进入SYN_RECV状态；  </p><p>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。  </p><p>其本质思想就是“让我知道你回应”了。 服务器监听请求，客户端发起连接请求（第一次连接），请求在路上可能存在丢失的风险， 所以当请求到了服务器后如果服务器同意建立连接会给客户端一个回信（第二次连接），告诉它：我已经收到请求，可以连接。  </p><p>但是回信也存在一个问题，那就是回信能不能到客户端？它需要客户端给他一个回信说我已经收到批准通知了， 如果客户端一直不回复的话意味着客户端没有收到批准通知。    </p><p>因此客户端一收到批准通知就立马回复（第三次握手）：OK老铁我收到你的批准通知了。至此，三次握手结束。 一个很类似的例子就是投简历：先投简历，然后对方公司会通知你通过简历筛选，你收到这个通知后一般会回复一下我知道了。 这种“让我知道你已经知道了”的想法是一种约定俗成的可靠信息交互的基本方式， 基于此想法构建的信息交互框架叫做协议。</p><hr>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何让不定宽高的div水平垂直居中</title>
+      <link href="2019/09/22/ru-he-rang-div-shui-ping-chui-zhi-ju-zhong/"/>
+      <url>2019/09/22/ru-he-rang-div-shui-ping-chui-zhi-ju-zhong/</url>
+      
+        <content type="html"><![CDATA[<p>1、使用定位，只需要给父元素添加position: relative，子元素添加position:absolute，（需要给子盒子添加top:50%;left:50%）之后使用transform: translate(-50%, -50%)即可。  </p><pre class=" language-bash"><code class="language-bash">        div<span class="token punctuation">{</span>        position:absolute<span class="token punctuation">;</span>        top: 50%<span class="token punctuation">;</span>      left: 50%<span class="token punctuation">;</span>      transform: translate<span class="token punctuation">(</span>-50%, -50%<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">}</span>  </code></pre><pre><code> 2、 使用flex,让其X,Y轴元素居中   ``` bash     div {   display: flex;   justify-content:center; //子元素水平居中   align-items:center; //子元素垂直居中 }   ```3、将子盒子转成行内块元素，给父元素添加text-align: center;     ``` bash   line-height: 700px，让子盒子水平居中   .box {   width: 500px;   height: 700px;   border: 1px solid #000;   text-align: center;   line-height: 700px;   /* 让图片水平居中 */        }  .content{  width: 200px;  height: 200px;  display: inline-block;//转成行内块元素     vertical-align: middle;//控制行内块的对齐方式中线对齐  background-color: pink;}       ```</code></pre><hr>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
   
   
 </search>
