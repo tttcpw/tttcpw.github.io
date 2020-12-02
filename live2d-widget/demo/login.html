@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="如何让不定宽高的div水平垂直居中, chengpengwei">
+    <meta name="keywords" content="chengpengwei">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>如何让不定宽高的div水平垂直居中 | chengpengwei</title>
+    <title>chengpengwei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <!-- <link rel="stylesheet" type="text/css" href="https://www.example.com/path/to/waifu.css" />应该不是，但是万一 -->
     <link rel="stylesheet" type="text/css" href="/css/waifu.min.css" />
@@ -396,12 +396,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">如何让不定宽高的div水平垂直居中</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -516,13 +516,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/web/">
-                                <span class="chip bg-color">web</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -534,28 +530,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-22
+                    2020-11-29
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-26
+                    2020-11-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    183
+                    367
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -570,51 +566,152 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>1、使用定位，只需要给父元素添加position: relative，子元素添加position:absolute，（需要给子盒子添加top:50%;left:50%）之后使用transform: translate(-50%, -50%)即可。  </p>
-<pre class=" language-bash"><code class="language-bash">
-        div<span class="token punctuation">{</span>
-        position:absolute<span class="token punctuation">;</span>
-        top: 50%<span class="token punctuation">;</span>
-      left: 50%<span class="token punctuation">;</span>
-      transform: translate<span class="token punctuation">(</span>-50%, -50%<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>  
-</code></pre>
-<pre><code> 2、 使用flex,让其X,Y轴元素居中  
+                
+<form class="form-signin" action="login.php" method="post">
+	<div id="stage">
+		<div id="inner">
+			<div id="cover">
+				<div id="text">
+					<span style="color: cyan;">MIMI</span><span style="color: white;">POWERED</span>
+				</div>
+				<div id="detail"></div>
+				<div id="handle"></div>
+			</div>
+			<canvas class="mb-4" id="live2d" width="800" height="800"></canvas>
+		</div>
+		<a id="info" href="javascript:info()"><i class="fa fa-lg fa-info"></i></a>
+		<a id="refresh" href="javascript:refresh()"><i class="fa fa-lg fa-refresh"></i></a>
+	</div>
+	<h1 class="h3 mb-3 font-weight-normal">看板娘登陆平台</h1>
+	<label for="room" class="sr-only">用户名</label>
+	<input type="text" name="room" class="form-control" placeholder="用户名" required="" autofocus="">
+	<label for="pass" class="sr-only">密码</label>
+	<input type="password" name="pass" class="form-control" placeholder="密码" required="">
+	<div class="checkbox mb-3">
+		<label>
+			<input type="checkbox" value="remember-me"> 记住我
+		</label>
+	</div>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+	<p class="mt-5 mb-3 text-muted">Copyleft © Mimi 2019</p>
+</form>
+<script>
+/*
+ * _(:з」∠)_
+ * Created by Shuqiao Zhang in 2019.
+ * https://zhangshuqiao.org
+ */
 
- ``` bash  
-   div {
-   display: flex;
-   justify-content:center; //子元素水平居中
-   align-items:center; //子元素垂直居中
- }  
+/*
+ * This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ */
+window.addEventListener("load", () => {
+	"use strict";
 
- ```
+	if (!CSS.supports("clip-path", "circle(120px at center)") && !CSS.supports("-webkit-clip-path", "circle(120px at center)")) {
+		document.getElementById("stage").innerHTML = '<img src="../assets/screenshot-1.png">';
+		return;
+	}
 
-3、将子盒子转成行内块元素，给父元素添加text-align: center;  
+	let apiPath = "https://live2d.fghrsh.net/api", state = 0,
+		modelId = localStorage.getItem("modelId"),
+		modelTexturesId = localStorage.getItem("modelTexturesId");
+	if (modelId === null) {
+		modelId = 1;
+		modelTexturesId = 53;
+	}
+	loadModel(modelId, modelTexturesId);
+
+	function loadModel(modelId, modelTexturesId) {
+		localStorage.setItem("modelId", modelId);
+		if (modelTexturesId === undefined) modelTexturesId = 0;
+		localStorage.setItem("modelTexturesId", modelTexturesId);
+		loadlive2d("live2d", `${apiPath}/get/?id=${modelId}-${modelTexturesId}`, null);
+		console.log("live2d", `模型 ${modelId}-${modelTexturesId} 加载完成`);
+		setTimeout(() => {
+			coverPosition("80%");
+			state = 2;
+		}, 2000);
+	}
+
+	function loadRandModel() {
+		const modelId = localStorage.getItem("modelId"),
+			modelTexturesId = localStorage.getItem("modelTexturesId");
+		fetch(`${apiPath}/rand_textures/?id=${modelId}-${modelTexturesId}`)
+			.then(response => response.json())
+			.then(result => {
+				loadModel(modelId, result.textures.id);
+				setTimeout(() => {
+					state = 2;
+					coverPosition("80%");
+					document.getElementById("refresh").setAttribute("href", "javascript:refresh()");
+				}, 1000);
+			});
+	}
+
+	function loadOtherModel() {
+		const modelId = localStorage.getItem("modelId");
+		fetch(`${apiPath}/switch/?id=${modelId}`)
+			.then(response => response.json())
+			.then(result => {
+				loadModel(result.model.id);
+			});
+	}
+
+	function coverPosition(pos) {
+		document.getElementById("cover").style.bottom = pos;
+	}
+
+	window.info = function() {
+		fetch("https://v1.hitokoto.cn")
+			.then(response => response.json())
+			.then(result => {
+				alert("「" + result.hitokoto + "」——" + result.from);
+			});
+	};
+
+	window.refresh = function() {
+		state = 0;
+		coverPosition("10%");
+		document.getElementById("refresh").setAttribute("href", "javascript:void(0)");
+		setTimeout(loadRandModel, 1000);
+	};
+
+	document.getElementById("handle").addEventListener("click", () => {
+		if (state === 1) {
+			state = 2;
+			coverPosition("80%");
+		}
+		else if (state === 2) {
+			state = 1;
+			coverPosition("20%");
+		}
+	});
+
+	document.querySelector("input[type=password]").addEventListener("focus", () => {
+		if (state === 2) {
+			state = 1;
+			coverPosition("20%");
+		}
+	});
+	document.querySelector("input[type=password]").addEventListener("blur", () => {
+		if (state === 1) {
+			state = 2;
+			coverPosition("80%");
+		}
+	});
+});
+</script>
 
 
-   ``` bash 
-  line-height: 700px，让子盒子水平居中
-   .box {
-   width: 500px;
-   height: 700px;
-   border: 1px solid #000;
-   text-align: center;
-   line-height: 700px;
-   /* 让图片水平居中 */
-        }
-
-  .content{
-  width: 200px;
-  height: 200px;
-  display: inline-block;//转成行内块元素   
-  vertical-align: middle;//控制行内块的对齐方式中线对齐
-  background-color: pink;
-}
-
-
-       ```</code></pre>
-<hr>
 
             </div>
             <hr/>
@@ -640,7 +737,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://tttcpw.github.io/2019/09/22/ru-he-rang-div-shui-ping-chui-zhi-ju-zhong/">https://tttcpw.github.io/2019/09/22/ru-he-rang-div-shui-ping-chui-zhi-ju-zhong/</a>
+                    <a href="https://tttcpw.github.io/live2d-widget/demo/login.html">https://tttcpw.github.io/live2d-widget/demo/login.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -677,11 +774,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/web/">
-                                    <span class="chip bg-color">web</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -721,62 +814,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/09/23/san-ci-wo-shou-guo-cheng-li-jie/">
+                <a href="/live2d-widget/demo/login.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="“三次握手过程理解”">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">“三次握手过程理解”</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-09-23
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            tttcpw
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/web/">
-                        <span class="chip bg-color">web</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/09/22/ru-he-rang-div-shui-ping-chui-zhi-ju-zhong/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="如何让不定宽高的div水平垂直居中">
-                        
-                        <span class="card-title">如何让不定宽高的div水平垂直居中</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -787,7 +836,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-09-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-29
                             </span>
                         <span class="publish-author">
                             
@@ -799,13 +848,43 @@
                 </div>
 
                 
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/web/">
-                        <span class="chip bg-color">web</span>
-                    </a>
-                    
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/live2d-widget/demo/login.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            tttcpw
+                            
+                        </span>
+                    </div>
                 </div>
+
                 
             </div>
         </div>
