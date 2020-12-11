@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>git的常用命令</title>
+      <link href="2020/12/11/git-de-chang-yong-ming-ling/"/>
+      <url>2020/12/11/git-de-chang-yong-ming-ling/</url>
+      
+        <content type="html"><![CDATA[<p>git init : 初始化仓库  </p><p>git status : 查看文件状态（如果修改文件，输入status可以在内容框中看见红色未入暂存区的文件，近一步如果进行git add . 之后，再次输入可以可以内容框里变成色）  </p><p>git add . : 英文状态下的点，将修改过的工作区文件上传到暂存区  </p><p>git commit -m “自定义” ： 暂存区的内容上传到仓库区  </p><p>git log : 查看提交日志  </p><p>git reset –hard 要回退的版本号 ： 可以配合git log 查看所有版本号，复制找到回退的版本号，hard前要加2个-  </p><p>git reflog : 查看操作  </p><p>.gitignore : 在该文件中书写的文件名会被git忽略  </p><p>git branth ： 查看所有分支名称，并且当前操作的分支上会出现*号  </p><p>git merge 要合并的分支名 ： 在当前主干上合并输入的分支，如果合并冲突了，需要自己手动解决冲突，操作结束后需要再次git commit提交  </p><p>git branth 分支名 ：在当前主干上新建一条分支，分支上的所以操作都不会影响到该干（当然，跳到分支上删除主干除外）  </p><p>git branth -d 要删除的分支名 ：删除该分支。不能在该分支上删除该分支（不能铁炖自己），不能在另外一条被当做分支主干上删除另外一条分支主干上的分支（不能影其他操作）  </p><p>git checkout 要跳转的分支名 ： 切换到该分支  </p><p>git checkout -b 分支名 ： 创建分支并跳转到该分支  </p><p>git clone 仓库地址 ： 从地址上克隆项目到本地，一般用与还没有参加该项目的第一下载项目文件  </p><p>git push 地址 分支名 ： 将本地项目和该分支上的修改等操作上传到git仓库。  </p><p>git pull ： 将更新的代码下载到本地  </p><p>git remote add 自定义别名 地址 ： 自定义一个别名用于方便上传仓库，配合push以这样使用 git push 别名 分支名  </p><p>git remote -v ：查看自定义别名  </p><p>git remote remove 要删除的别名 ： 删除该自定义别名  </p><hr>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="2020/11/22/hello-world/"/>
       <url>2020/11/22/hello-world/</url>
