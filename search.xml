@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>vue2 element-ui 前端假分页</title>
+      <link href="2022/06/28/vue2-element-ui-qian-duan-jia-fen-ye/"/>
+      <url>2022/06/28/vue2-element-ui-qian-duan-jia-fen-ye/</url>
+      
+        <content type="html"><![CDATA[<p>不知各位有没有遇到在需求为主，配置化为辅的今天，关联方的操作使的应该是正常的逻辑变的不可理喻。比如我这次遇到了大哥，我们是通过接口获取他们的数据，但是他们的数据参数起名随意（2022年了，我竟然看见返回参JSON某些属性名叫fct，sbt），不看需求（关于参数的时间他们不同意），告诉我们数据量大，但是不提供分页。</p><p>在经过一天的交涉下，我们后端竟然聊出了高血压，在领导的据理力争下，结果就是他们领导牛，按他们想发做。。。</p><p>问了一下数据量，也就一百条不到，想着后端好哥们经常分享下午茶，我就和他沟通，让他直接把数据全部给我，我来分页。<br>policy</p><pre class=" language-jsx"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table</span> <span class="token attr-name">:data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tableData<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">prop</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>date<span class="token punctuation">"</span></span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>日期<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>180<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table</span><span class="token punctuation">></span></span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vue2 element-ui </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>redux toolkit 我的一己之见</title>
       <link href="2022/06/26/redux-toolkit-wo-de-yi-ji-zhi-jian/"/>
       <url>2022/06/26/redux-toolkit-wo-de-yi-ji-zhi-jian/</url>
