@@ -541,21 +541,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-06-29
+                    2022-06-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    252
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -572,12 +572,121 @@
             <div id="articleContent">
                 <p>不知各位有没有遇到在需求为主，配置化为辅的今天，关联方的操作使的应该是正常的逻辑变的不可理喻。比如我这次遇到了大哥，我们是通过接口获取他们的数据，但是他们的数据参数起名随意（2022年了，我竟然看见返回参JSON某些属性名叫fct，sbt），不看需求（关于参数的时间他们不同意），告诉我们数据量大，但是不提供分页。</p>
 <p>在经过一天的交涉下，我们后端竟然聊出了高血压，在领导的据理力争下，结果就是他们领导牛，按他们想发做。。。</p>
-<p>问了一下数据量，也就一百条不到，想着后端好哥们经常分享下午茶，我就和他沟通，让他直接把数据全部给我，我来分页。<br>policy</p>
+<p>问了一下数据量，也就一百条不到，想着后端好哥们经常分享下午茶，我就和他沟通，让他直接把数据全部给我，我来分页。</p>
 <pre class=" language-jsx"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table</span> <span class="token attr-name">:data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tableData<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">prop</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>date<span class="token punctuation">"</span></span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>日期<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>180<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">v-for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>(item,</span> <span class="token attr-name">index)</span> <span class="token attr-name">in</span> <span class="token attr-name">tableTemplate"</span> <span class="token attr-name">:key</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item</span> <span class="token attr-name">+</span> <span class="token attr-name">index"</span> <span class="token attr-name">:prop</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item.code<span class="token punctuation">"</span></span> <span class="token attr-name">:label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item.label<span class="token punctuation">"</span></span> <span class="token attr-name">min-width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>160<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span></code></pre>
+    <span class="token operator">&lt;</span>el<span class="token operator">-</span>pagination
+      @size<span class="token operator">-</span>change<span class="token operator">=</span><span class="token string">"handleSizeChange"</span>
+      @current<span class="token operator">-</span>change<span class="token operator">=</span><span class="token string">"handleCurrentChange"</span>
+      <span class="token punctuation">:</span>current<span class="token operator">-</span>page<span class="token punctuation">.</span>sync<span class="token operator">=</span><span class="token string">"page"</span>
+      <span class="token punctuation">:</span>page<span class="token operator">-</span>sizes<span class="token operator">=</span><span class="token string">"[5, 10, 15]"</span>
+      <span class="token punctuation">:</span>page<span class="token operator">-</span>size<span class="token operator">=</span><span class="token string">"pageSize"</span>
+      layout<span class="token operator">=</span><span class="token string">"sizes, prev, pager, next"</span>
+      <span class="token punctuation">:</span>total<span class="token operator">=</span><span class="token string">"total"</span> <span class="token operator">/</span><span class="token operator">></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+
+ <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      total<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+      pageSize<span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      page<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      loading<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      tableData<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      tableTemplate<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span> label<span class="token punctuation">:</span> <span class="token string">'保单号'</span><span class="token punctuation">,</span> code<span class="token punctuation">:</span> <span class="token string">'policyNum'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> label<span class="token punctuation">:</span> <span class="token string">'描述'</span><span class="token punctuation">,</span> code<span class="token punctuation">:</span> <span class="token string">'description'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> label<span class="token punctuation">:</span> <span class="token string">'姓名'</span><span class="token punctuation">,</span> code<span class="token punctuation">:</span> <span class="token string">'username'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> label<span class="token punctuation">:</span> <span class="token string">'手机号'</span><span class="token punctuation">,</span> code<span class="token punctuation">:</span> <span class="token string">'mobile'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> label<span class="token punctuation">:</span> <span class="token string">'地址'</span><span class="token punctuation">,</span> code<span class="token punctuation">:</span> <span class="token string">'address'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+<p>上面就是一个简单的结构，肯定不能给真实数据和请求，而且该功能是查询，有包括查询条件和效验就简单跳过，重点是看怎么假分页。</p>
+<pre class=" language-jsx"><code class="language-jsx">data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        tableList<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// 展示的表格的数据</span>
+        AllList<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token comment" spellcheck="true">// 全部数据</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token keyword">async</span> getList <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> _this <span class="token operator">=</span> <span class="token keyword">this</span>
+        <span class="token comment" spellcheck="true">// ... 该处是一些非空校验和一些清空数据</span>
+        _this<span class="token punctuation">.</span>page <span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token keyword">const</span> params <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>  <span class="token comment" spellcheck="true">// 基础请求参数</span>
+        _this<span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">true</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getPolicyList</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>status <span class="token operator">!==</span> <span class="token string">'success'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                _this<span class="token punctuation">.</span>$message<span class="token punctuation">.</span><span class="token function">warning</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>message<span class="token punctuation">)</span>
+                _this<span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">false</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">const</span> <span class="token punctuation">{</span> list<span class="token punctuation">,</span> total <span class="token punctuation">}</span> <span class="token operator">=</span> res<span class="token punctuation">.</span>data
+            _this<span class="token punctuation">.</span>AllList <span class="token operator">=</span> _this<span class="token punctuation">.</span><span class="token function">cuttingArray</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span>
+             _this<span class="token punctuation">.</span>tableList <span class="token operator">=</span> _this<span class="token punctuation">.</span>AllList<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>item <span class="token operator">=</span><span class="token operator">></span> item<span class="token punctuation">.</span>page <span class="token operator">===</span> _this<span class="token punctuation">.</span>page<span class="token punctuation">)</span><span class="token punctuation">.</span>list
+            _this<span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">_</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//  ...  失败的操作</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    cuttingArray <span class="token punctuation">(</span>arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>arr<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">let</span> newArr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">let</span> num <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">+</span><span class="token operator">=</span><span class="token keyword">this</span><span class="token punctuation">.</span>pageSize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>pageSize <span class="token operator">&lt;=</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            newArr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              page<span class="token punctuation">:</span> num <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+              list<span class="token punctuation">:</span> arr<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>pageSize<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            newArr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              page<span class="token punctuation">:</span> num <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+              list<span class="token punctuation">:</span> arr<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> i <span class="token operator">+</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> newArr
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>在data中添加<code>tableList</code>和<code>AllList</code>，记清楚他们一个是后端返回的你处理过的所有数据，另一个是你用来展示的table的数据。</p>
+<p>getList中我省略了一些清除数据和效验的操作，但是记得，这个请求是每次点查询时触发的，使用必须将<code>page</code>赋值为1，清空tableList和AllList的原数据，记得是必须！还有既然已经获取全部数据，条数和页码是我们前端自己用的，不用给后端了。</p>
+<p>在获取到全部数据后，将数据处理执行<code>cuttingArray</code>方法，他会使用for循环遍历，每次根据你的条数跳着遍历并切割数组。</p>
+<p>假如获取到的总数据为16条，你的条数为一页10条，他第一次遍历时， i为0，判断 i 加上当前条数 （11）是否小于或等于传入的arr的length（16），发现小于时，num + 1， list 是 使用 arr的slice方法切割 i（0）-  pageSize（10）条并返回给list，这就是分页的第一页。</p>
+<p>因为 i 每次遍历都会加上当前条数，所以第2次时 i 为 11，再经过判断时，i 加 pageSize (21)已经超过arr的length（16），再切割时，会切割 i (11) - arr.length(16) 并返回给list，这正好是总数剩下的末页。</p>
+<pre class=" language-jsx"><code class="language-jsx">methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    handleCurrentChange <span class="token punctuation">(</span>page<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>page <span class="token operator">=</span> page <span class="token operator">||</span> <span class="token number">1</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>tableList <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>AllList<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>item <span class="token operator">=</span><span class="token operator">></span> item<span class="token punctuation">.</span>page <span class="token operator">===</span> <span class="token keyword">this</span><span class="token punctuation">.</span>page<span class="token punctuation">)</span><span class="token punctuation">.</span>list
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    handleSizeChange <span class="token punctuation">(</span>size<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>pageSize <span class="token operator">=</span> size <span class="token operator">||</span> <span class="token number">10</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getList</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>还有处理页码和翻页事件时注意，因为切割时我们往里面放了page ，所以和上面一样根据page查询list并赋给tableList即可，但是修改条数就必须要走请求了，但是我们cuttingArray方法是根据条数切割数组，并且发送请求前我们还会修改页码为第一页，所以完美实现假分页。</p>
+<p>因为第一期的计划仅仅是展示表格，所以点操作修改状态有没有我不知道，但是如果要实现也非常简单，点击事件时拿到id，根据page修改AllList的状态再根据页码赋值给tableList，类似于下面，只要修改总数据，任他怎么点状态都没问题，当然要走请求改一下那条数据。</p>
+<pre class=" language-jsx"><code class="language-jsx"><span class="token comment" spellcheck="true">//  ... 一些根据id修改状态的请求，就算假分页，改状态也要走请求，不然再获取一次总数组状态不就没了 </span>
+_this<span class="token punctuation">.</span>AllList <span class="token operator">=</span> _this<span class="token punctuation">.</span>AllList<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>item <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+     <span class="token keyword">if</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>page <span class="token operator">===</span> _this<span class="token punctuation">.</span>page<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         item<span class="token punctuation">.</span>list <span class="token operator">=</span> item<span class="token punctuation">.</span>list<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>maSon <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+             <span class="token keyword">if</span><span class="token punctuation">(</span>maSon<span class="token punctuation">.</span>id <span class="token operator">===</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                 <span class="token comment" spellcheck="true">//  ...  在这里修改状态</span>
+             <span class="token punctuation">}</span>
+             <span class="token keyword">return</span> maSon
+         <span class="token punctuation">}</span><span class="token punctuation">)</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">return</span> item
+ <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>tableList <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>AllList<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>item <span class="token operator">=</span><span class="token operator">></span> item<span class="token punctuation">.</span>page <span class="token operator">===</span> <span class="token keyword">this</span><span class="token punctuation">.</span>page<span class="token punctuation">)</span><span class="token punctuation">.</span>list</code></pre>
+<p>和他们沟通了3天，我们的代码2个小时开发完成并联调测试完成，甚至没到吃饭的时就结束了，问一下关联方他们什么时候联调，他告诉我们7月中旬。。。</p>
+<p>最后大家记住，这种假分页是实在没办法才采用的，数据一多，查询时的loading就要老半天，而且大家看见改状态多麻烦，有条件该怎么正常给后端 页码和条数 就怎么正常做，他返回什么你展示什么多舒服啊，不要一天天想秀什么操作，我敢肯定后端一定也有假分页，但是这次算我抢功能，所以问题也是我来担。</p>
+<p>当然，基本上不会有问题，有只要找到方法也肯定能解决！</p>
+<p>最后祝大家身体健康！</p>
 
             </div>
             <hr/>
@@ -920,7 +1029,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">6k</span>&nbsp;字
+                class="white-color">7.3k</span>&nbsp;字
             
             
             
