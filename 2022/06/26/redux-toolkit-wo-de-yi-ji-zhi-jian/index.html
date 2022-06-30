@@ -548,7 +548,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    2k
                 </div>
                 
 
@@ -707,6 +707,7 @@ export const getMyToken = createAsyncThunk(
 </code></pre>
 <p>现在原来在active的dispatch操作可以使用<code>createAsyncThunk</code>代替，<code>createAsyncThunk</code>函数可以就是3个参数，一个名为<code>type</code>的动作类型值，一个<code>payloadCreator</code>回调，和一个对象<code>Options</code>。 </p>
 <p>像上图，我创建了<code>getMyToken</code>，<code>createAsyncThunk</code>的第一个参数为字符串<code>login/getTokenStatus/fulfilled</code>,login就是因为他是属于tokenSlice的一部分，后面的名称就随便你，getTokenStatus是我上完wc后随便起的，其实叫getMyToken也可以，再后面就是他的操作类型，按官网的分类有  <code>pending： 等待</code>  、<code>fulfilled： 完成</code>、<code>rejected：失败这三个值</code>。</p>
+<p>这里我只是展示了他成功时会返回数据，在这里catch 进行错误处理也是没问题的。</p>
 <p>后面的函数类似于之前在active中的dispatch，他失败和成功都会返回，至于第三个参数我目前没使用到，也就没看下去，如果后面要用，我应该会补上提醒自己。</p>
 <p>重点是tokenSlice.ts要改成这样：</p>
 <pre class=" language-tsx"><code class="language-tsx">import { createSlice, PayloadAction } from '@reduxjs/toolkit'
@@ -726,8 +727,14 @@ export const tokenSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getMyToken.fulfilled, (state, active) => {
-      state.token = active.payload.token
-      state.refresh_token = active.payload.refresh_token
+      //  1. 点语法
+      //  state.token = active.payload.token
+      //  state.refresh_token = active.payload.refresh_token
+      //  2. 直接返回active.payload，而且return 的内容实际上是会被state的类型控制监视到的
+      //  return active.payload
+      //  3. 返回一个新地址的对象
+      const { token,refresh_token  } = active.payload
+      Object.assign(state, { token, refresh_token })
     })
   }
 })
@@ -735,7 +742,7 @@ export const tokenSlice = createSlice({
 
 
 export default tokenSlice.reducer</code></pre>
-<p>当使用<code>createAsyncThunk</code>后，reducers之前一些修改token的操作不需要就可以去掉了，在<code>extraReducers</code>中接受<code>builder</code>，该参数的<code>addCase</code>接受引入的<code>getMyToken</code>，之前我们说过<code>createAsyncThunk</code>的type包含3个状态，这次我们使用<code>fulfilled</code>，当然你也可以在<code>createAsyncThunk</code>的<code>type</code>不加<code>fulfilled</code>，但是为了更好区分推荐还是加上，addCase的回调函数接受<code>state</code>和<code>active</code>，这里就已经可以操作和修改<code>initialState</code>的值了，不需要再在reducers配置什么，当然如果有多个<code>createAsyncThunk</code>，你也可以在<code>extraReducers</code>中继续加。</p>
+<p>当使用<code>createAsyncThunk</code>后，reducers之前一些修改token的操作不需要就可以去掉了，在<code>extraReducers</code>中接受<code>builder</code>，该参数的<code>addCase</code>接受引入的<code>getMyToken</code>，之前我们说过<code>createAsyncThunk</code>的type包含3个状态，这次我们使用<code>fulfilled</code>，当然你也可以在<code>createAsyncThunk</code>的<code>type</code>不加<code>fulfilled</code>，但是为了更好区分推荐还是加上，addCase的回调函数接受<code>state</code>和<code>active</code>，这里就已经可以操作和修改<code>initialState</code>的值了，不需要再在reducers配置什么，当然如果有多个<code>createAsyncThunk</code>，你也可以在<code>extraReducers</code>中继续加，包括对<code>getMyToken</code>失败的<code>rejected</code>的处理，但是这里在dispatch时使用try和catch 处理会方便点。</p>
 <pre class=" language-tsx"><code class="language-tsx">// index.tsx
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { getTodosList } from './store/todosSlice';
@@ -771,7 +778,7 @@ function App() {
 
 export default App;</code></pre>
 <p>最后记得将这里加上<code>await dispatch(getMyToken(params)).unwrap()</code>,并使用try 和catch 将成功和失败即将要进行的操作分开，因为你看见了，现在无法在非函数组件中操作，只能在发送请求时判断是否成功，大家也放心，只要请求失败肯定会走catch！</p>
-<p>以是只是我个人对<code>Redux Toolkit</code>的初步了解，不可否认Redux Toolkit还有不少缺点，比如你不能直接修改initialState，上面的initialState包含 token和refresh_token两个值，你直接state = active.payload 这个操作他是不认的，所以我才会一个一个点语法赋值，当然也可以给initialState中创建一个login，login中包含userToken，userToken中包含token和refresh_token，这时你可以获取数据直接覆盖userToken，该操作也会让你明白使用useAppSelector获取多层对象中的某个属性值是多痛苦的事，说不定以后都会变的更好。</p>
+<p>以是只是我个人对<code>Redux Toolkit</code>的初步了解，不可否认Redux Toolkit还有不少缺点，比如你不能直接修改initialState，上面的initialState包含 token和refresh_token两个值，你直接state = active.payload 这个操作他是不认的，我在上图用了三种方法，当然你也可以一个一个点语法赋值，当然也可以给initialState中创建一个login，login中包含userToken，userToken中包含token和refresh_token，这时你可以获取数据直接覆盖userToken，该操作也会让你明白使用useAppSelector获取多层对象中的某个属性值是多痛苦的事，说不定以后都会变的更好。</p>
 <p>最后还是觉得，Redux Toolkit 比之前的react-redux 使用的方法好数倍！</p>
 
             </div>
@@ -1113,7 +1120,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">7.3k</span>&nbsp;字
+                class="white-color">7.4k</span>&nbsp;字
             
             
             
