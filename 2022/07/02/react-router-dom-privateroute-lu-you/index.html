@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="redux toolkit 我的一己之见, chengpengwei">
+    <meta name="keywords" content="react-router-dom PrivateRoute路由, chengpengwei">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>redux toolkit 我的一己之见 | chengpengwei</title>
+    <title>react-router-dom PrivateRoute路由 | chengpengwei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <!-- <link rel="stylesheet" type="text/css" href="https://www.example.com/path/to/waifu.css" />应该不是，但是万一 -->
     <link rel="stylesheet" type="text/css" href="/css/waifu.min.css" />
@@ -396,12 +396,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">redux toolkit 我的一己之见</h1>
+                    <h1 class="description center-align post-title">react-router-dom PrivateRoute路由</h1>
                 </div>
             </div>
         </div>
@@ -518,8 +518,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/React-react-redux-redux-toolkit/">
-                                <span class="chip bg-color">React react-redux redux toolkit</span>
+                            <a href="/tags/react-router-dom/">
+                                <span class="chip bg-color">react-router-dom</span>
                             </a>
                         
                     </div>
@@ -534,28 +534,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-26
+                    2022-07-02
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-06-30
+                    2022-07-03
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    297
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    1 分
                 </div>
                 
 
@@ -570,216 +570,44 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>官方文档：<a target="_blank" rel="noopener" href="https://redux.js.org/">redux</a><br>官方文档：<a target="_blank" rel="noopener" href="https://redux-toolkit.js.org/">redux toolkit</a><br><del>英文建议翻译</del></p>
-<p>今天是个摸鱼的好日子，但是当我看向周围同事时，发现他们不是在刻苦铭心的继续改bug，就是在因为改需求后疯狂的改代码，而我看着群里估计就是不想改代码的关联方和就是一定要统一配置化的领导在需求的提示语和关联方奇奇怪怪的完全没有语意化属性名吵的不可开交，我就知道今天这鱼我摸定了，但是要显的我正在工作，于是我决定先敲个 typescript版的todos练练手，当我使用createStore创建store时发现他寄了，上了官网才发现人家已经推荐使用redux toolkit这个库，我估计肯定是redux的作者终于发现这玩意是真的繁琐且枯燥。</p>
-<h3 id="1、安装-Redux-Toolkit-和-React-Redux"><a href="#1、安装-Redux-Toolkit-和-React-Redux" class="headerlink" title="1、安装 Redux Toolkit 和 React-Redux"></a>1、安装 Redux Toolkit 和 React-Redux</h3><pre class=" language-js"><code class="language-js">npm install @reduxjs<span class="token operator">/</span>toolkit react<span class="token operator">-</span>redux</code></pre>
-<pre class=" language-json"><code class="language-json">yarn add @reduxjs/toolkit react-redux</code></pre>
-<p>从 React Redux v7.2.3 开始，<code>react-redux</code>包依赖于<code>@types/react-redux</code>，因此类型定义将与库一起自动安装。如果你版本低于那个数，您需要自己手动安装它们（<code>npm install @types/react-redux</code>）。</p>
-<p>看对项目的需要，首先必须要store文件夹，文件夹中有index.ts和hooks.ts文件与createSlice文件夹，名称可以直接定义。</p>
-<h3 id="2、-使用Redux-Toolkit"><a href="#2、-使用Redux-Toolkit" class="headerlink" title="2、 使用Redux Toolkit"></a>2、 使用Redux Toolkit</h3><p>首先是store中的index.ts </p>
-<pre class=" language-tsx"><code class="language-tsx">// index.ts
-import { configureStore } from '@reduxjs/toolkit'
-export const store = configureStore({
-  reducer: {}
-})
-
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch</code></pre>
-<p>从<code>reduxjs/toolkit</code>获取<code>configureStore</code>并他创建store，注意的是<code>reducer</code>这个对象名称不可修改，所有实例必须在<code>reducer</code>中，<code>RootState </code>获取<code>store</code>中属性的类型，<code> AppDispatch</code>获取所有提交时的键。</p>
-<p>虽然可以将<code>RootState</code>and<code>AppDispatch</code>类型导入到每个组件中, 但是使用配置后的自定义hooks的类型化肯定更加方便，使用官方推荐在store中添加hooks.ts文件，内容如下： </p>
-<pre class=" language-tsx"><code class="language-tsx">import { useDispatch, useSelector } from 'react-redux'
-import type { TypedUseSelectorHook } from 'react-redux'
-import type { RootState, AppDispatch } from './store'
-
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch: () => AppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector</code></pre>
-<p>剩下的就是如同你在<code>createStore</code>中配置的active一样配置Slice.ts</p>
-<pre class=" language-tsx"><code class="language-tsx">//  tokenSlice.ts
-
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-// Define the initial state using that type
-const initialState: requestToken = {} as requestToken
-
-
-
-export const tokenSlice = createSlice({
-  name: 'login',
-  // `createSlice` will infer the state type from the `initialState` argument
-  initialState,
-  reducers: {
-    getAxiosToken(state, actions: PayloadAction<requestToken>) {
-      const { token, refresh_token } = actions.payload
-      state.token = token
-      state.refresh_token = refresh_token
-    }
-  }
-})
-
-export const {
-  getAxiosToken,
-} = tokenSlice.actions
-
-
-export default tokenSlice.reducer</code></pre>
-<p>在createSlice文件夹中创建tokenSlice.ts，你也可以用其他方法。</p>
-<p>第一就是创建<code>initialState</code>属性，这个名称是固定的，必须叫这个名称，因为是用ts的原因，可以指定类型给他。</p>
-<p>在<code>createSlice</code>中，name如同你创建active的type，<code>reducers</code>名称也是固定的，其他的方法就是修改store，而且不用再return，<code>PayloadAction</code>可以指定你返回的payload的类型。在你dispatch时，reduxjs/toolkit会根据name和reducers的方法名生成一个提交的active，如上图，我的tokenSlice的name为login，我dispatch方法<code>getAxiosToken</code>时，他会生成type为<code> login/getAxiosToken</code>。最后默认导出tokenSlice的reducer，将actions中的方法解构并导出。</p>
-<pre class=" language-tsx"><code class="language-tsx">//  store中的index.ts
-
-import { configureStore } from '@reduxjs/toolkit'
-import todosSlice from './createSlice/todosSlice'
-import Login from './createSlice/tokenSlice'
-export const store = configureStore({
-  reducer: {
-    todos: todosSlice,
-    Login
-  }
-})
-
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-</code></pre>
-<h3 id="3、在组件中使用Redux-Toolkit"><a href="#3、在组件中使用Redux-Toolkit" class="headerlink" title="3、在组件中使用Redux Toolkit"></a>3、在组件中使用Redux Toolkit</h3><pre class=" language-tsx"><code class="language-tsx">import { useAppDispatch, useAppSelector } from './store/hooks';
-import { getTodosList } from './store/todosSlice';
-import { todosList } from './contents';
-import { useEffect } from 'react';
-import { axiosParams } from './type';
-import { getMyToken } from './api';
-function App() {
-  const dispatch = useAppDispatch()
-  const token = useAppSelector(state => state)
-  useEffect(() => {
-    dispatch(getTodosList(todosList))
-  }, [dispatch])
-  const handleClick = async () => {
-    const params: axiosParams = {
-      mobile: '13911111111',
-      code: '246810'
-    }
-    dispatch(getMyToken(params))
-  }
-  return (
-    <section>
-      //  发送请求按钮
-      <button onClick={() => handleClick()}>点我发送请求！</button>
-      //  获取参数按钮
-      <button onClick={() => console.log(token.Login)}>点我获取Token！</button>
-    </section>
-  );
+                <h3 id="react-router-dom-V5-配置路由守卫组件遇到的问题-："><a href="#react-router-dom-V5-配置路由守卫组件遇到的问题-：" class="headerlink" title="react-router-dom V5 配置路由守卫组件遇到的问题 ："></a>react-router-dom V5 配置路由守卫组件遇到的问题 ：</h3><p>不多说什么，今天在练习typeScript 中遇到了路由守卫的问题，下面放代码。</p>
+<pre class=" language-tsx"><code class="language-tsx">// PrivateRoute.tsx
+import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { hasToken } from '@/utils/storage'
+export interface PrivateRouteProps extends RouteProps  {
+  component: React.ComponentType<any>
 }
 
-export default App;
-</code></pre>
-<p>使用也是和以前一样，但是<code>useDispatch</code>要改成你之前在store中的hooks.ts的<code>useAppDispatch</code>。获取也同理，在useAppSelector获取所有的state，因为已在hooks.ts中配置过，所有你能很轻松的点出store中的属性。</p>
-<p>注： 你应该发现我上面的请求dispatch时是从api中获取的，为什么呢？</p>
-<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// 旧api</span>
-
-<span class="token keyword">import</span> request <span class="token keyword">from</span> <span class="token string">"../request"</span><span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> <span class="token punctuation">{</span> axiosParams<span class="token punctuation">,</span> axiosResquery<span class="token punctuation">,</span> requestToken <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../type"</span><span class="token punctuation">;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">const</span> getToken <span class="token operator">=</span> async <span class="token punctuation">(</span>value<span class="token punctuation">:</span> axiosParams<span class="token punctuation">)</span><span class="token punctuation">:</span> Promise<span class="token operator">&lt;</span>axiosResquery<span class="token operator">&lt;</span>requestToken<span class="token operator">></span><span class="token operator">></span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
-    <span class="token keyword">try</span> <span class="token punctuation">{</span>
-      <span class="token keyword">const</span> <span class="token punctuation">{</span> data <span class="token punctuation">}</span> <span class="token operator">=</span> await request<span class="token punctuation">.</span>post<span class="token operator">&lt;</span>axiosResquery<span class="token operator">&lt;</span>requestToken<span class="token operator">></span><span class="token operator">></span><span class="token punctuation">(</span><span class="token string">'/authorizations'</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span>
-      <span class="token keyword">return</span> data
-    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">err</span><span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">return</span> err
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p>当然是因为操作都是在api中完成的，类似于以前的在请求中dispatch出去，大家以前都是在active中异步获取数据再dispath出去的，现在<code>useAppDispatch</code>不能在非函数组件中使用，那怎么dispatch出来呢？</p>
-<h3 id="4、Redux-Toolkit中的异步操作createAsyncThunk"><a href="#4、Redux-Toolkit中的异步操作createAsyncThunk" class="headerlink" title="4、Redux Toolkit中的异步操作createAsyncThunk"></a>4、Redux Toolkit中的异步操作createAsyncThunk</h3><pre class=" language-tsx"><code class="language-tsx">// 新api
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import request from "../request";
-import { axiosParams, axiosResquery, requestToken } from "../type";
-export const getMyToken = createAsyncThunk(
-  'login/getTokenStatus/fulfilled',
-  async (value: axiosParams) => {
-    try {
-      const { data } = await request.post<axiosResquery<requestToken>>('/authorizations', value)
-      return data.data
-    } 
-  }
-)
-</code></pre>
-<p>现在原来在active的dispatch操作可以使用<code>createAsyncThunk</code>代替，<code>createAsyncThunk</code>函数可以就是3个参数，一个名为<code>type</code>的动作类型值，一个<code>payloadCreator</code>回调，和一个对象<code>Options</code>。 </p>
-<p>像上图，我创建了<code>getMyToken</code>，<code>createAsyncThunk</code>的第一个参数为字符串<code>login/getTokenStatus/fulfilled</code>,login就是因为他是属于tokenSlice的一部分，后面的名称就随便你，getTokenStatus是我上完wc后随便起的，其实叫getMyToken也可以，再后面就是他的操作类型，按官网的分类有  <code>pending： 等待</code>  、<code>fulfilled： 完成</code>、<code>rejected：失败这三个值</code>。</p>
-<p>这里我只是展示了他成功时会返回数据，在这里catch 进行错误处理也是没问题的。</p>
-<p>后面的函数类似于之前在active中的dispatch，他失败和成功都会返回，至于第三个参数我目前没使用到，也就没看下去，如果后面要用，我应该会补上提醒自己。</p>
-<p>重点是tokenSlice.ts要改成这样：</p>
-<pre class=" language-tsx"><code class="language-tsx">import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getMyToken } from '../api'
-import { requestToken  } from '../type'
-
-// Define the initial state using that type
-const initialState: requestToken = {} as requestToken
-
-
-
-export const tokenSlice = createSlice({
-  name: 'login',
-  // `createSlice` will infer the state type from the `initialState` argument
-  initialState,
-  reducers: {
-  },
-  extraReducers: (builder) => {
-    builder.addCase(getMyToken.fulfilled, (state, active) => {
-      //  1. 点语法
-      //  state.token = active.payload.token
-      //  state.refresh_token = active.payload.refresh_token
-      //  2. 直接返回active.payload，而且return 的内容实际上是会被state的类型控制监视到的
-      //  return active.payload
-      //  3. 返回一个新地址的对象
-      const { token,refresh_token  } = active.payload
-      Object.assign(state, { token, refresh_token })
-    })
-  }
-})
-
-
-
-export default tokenSlice.reducer</code></pre>
-<p>当使用<code>createAsyncThunk</code>后，reducers之前一些修改token的操作不需要就可以去掉了，在<code>extraReducers</code>中接受<code>builder</code>，该参数的<code>addCase</code>接受引入的<code>getMyToken</code>，之前我们说过<code>createAsyncThunk</code>的type包含3个状态，这次我们使用<code>fulfilled</code>，当然你也可以在<code>createAsyncThunk</code>的<code>type</code>不加<code>fulfilled</code>，但是为了更好区分推荐还是加上，addCase的回调函数接受<code>state</code>和<code>active</code>，这里就已经可以操作和修改<code>initialState</code>的值了，不需要再在reducers配置什么，当然如果有多个<code>createAsyncThunk</code>，你也可以在<code>extraReducers</code>中继续加，包括对<code>getMyToken</code>失败的<code>rejected</code>的处理，但是这里在dispatch时使用try和catch 处理会方便点。</p>
-<pre class=" language-tsx"><code class="language-tsx">// index.tsx
-import { useAppDispatch, useAppSelector } from './store/hooks';
-import { getTodosList } from './store/todosSlice';
-import { todosList } from './contents';
-import { useEffect } from 'react';
-import { axiosParams } from './type';
-import { getMyToken } from './api';
-function App() {
-  const dispatch = useAppDispatch()
-  const token = useAppSelector(state => state)
-  useEffect(() => {
-    dispatch(getTodosList(todosList))
-  }, [dispatch])
-  const handleClick = async () => {
-    const params: axiosParams = {
-      mobile: '13911111111',
-      code: '246810'
-    }
-    try {
-        await dispatch(getMyToken(params)).unwrap()
-    } catch (_) {
-        return
-    }
-
-  }
+export const PrivateRoute = (props: PrivateRouteProps) => {
+  let { component: Component, ...rest } = props;
   return (
-    <section>
-      <button onClick={() => handleClick()}>点我发送请求！</button>
-      <button onClick={() => console.log(token.Login)}>点我获取Token！</button>
-    </section>
-  );
+  <Route
+  {...rest}
+  render={props =>  hasToken() ? <Component {...props} /> : <Redirect to='/login' />}
+  />)
+}</code></pre>
+<pre class=" language-tsx"><code class="language-tsx">// app.tsx
+<PrivateRoute path="/profile/edit" component={ProfileEdit} exact /></code></pre>
+<p>但是我按上面的代码 c + v 后代码报错了，在我改了半天上图后发现，就算是不报错，页码也会有问题，在我找我的前辈，前辈启动了他存的老代码时，运行不仅没有问题，页面也没问题，但是他给我写demo时，一样的代码，该报错报错，改完报错页码寄了。</p>
+<p>在老大哥找到问题前，我只能使用笨方法，目前好像没什么问题 ，代码如下：</p>
+<pre class=" language-tsx"><code class="language-tsx">// PrivateRoute.tsx
+import { hasToken } from '@/utils/storage'
+import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom'
+export default function PrivateRoute(porps: RouteProps) {
+  const location = useLocation()
+  return (
+    hasToken() ? <Route {...porps} /> : <Redirect to='/login' />
+  )
 }
-
-export default App;</code></pre>
-<p>最后记得将这里加上<code>await dispatch(getMyToken(params)).unwrap()</code>,并使用try 和catch 将成功和失败即将要进行的操作分开，因为你看见了，现在无法在非函数组件中操作，只能在发送请求时判断是否成功，大家也放心，只要请求失败肯定会走catch！</p>
-<p>以是只是我个人对<code>Redux Toolkit</code>的初步了解，不可否认Redux Toolkit还有不少缺点，比如你不能直接修改initialState，上面的initialState包含 token和refresh_token两个值，你直接state = active.payload 这个操作他是不认的，我在上图用了三种方法，当然你也可以一个一个点语法赋值，当然也可以给initialState中创建一个login，login中包含userToken，userToken中包含token和refresh_token，这时你可以获取数据直接覆盖userToken，该操作也会让你明白使用useAppSelector获取多层对象中的某个属性值是多痛苦的事，说不定以后都会变的更好。</p>
-<p>最后还是觉得，Redux Toolkit 比之前的react-redux 使用的方法好数倍！</p>
+</code></pre>
+<pre class=" language-tsx"><code class="language-tsx">// app.tsx
+// 可以使用component
+<PrivateRoute path="/profile/edit" component={ProfileEdit} exact />
+// 也可以使用children
+<PrivateRoute path="/profile/edit">
+  <ProfileEdit></ProfileEdit>
+</PrivateRoute></code></pre>
+<p>目前感觉应该是版本问题，但是什么时候 RouteProps 中的 render 变成这个样子？等老大哥和兄弟们找到原因我肯定会水一水。</p>
 
             </div>
             <hr/>
@@ -805,7 +633,7 @@ export default App;</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://tttcpw.github.io/2022/06/26/redux-toolkit-wo-de-yi-ji-zhi-jian/">https://tttcpw.github.io/2022/06/26/redux-toolkit-wo-de-yi-ji-zhi-jian/</a>
+                    <a href="https://tttcpw.github.io/2022/07/02/react-router-dom-privateroute-lu-you/">https://tttcpw.github.io/2022/07/02/react-router-dom-privateroute-lu-you/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -843,8 +671,8 @@ export default App;</code></pre>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/React-react-redux-redux-toolkit/">
-                                    <span class="chip bg-color">React react-redux redux toolkit</span>
+                                <a href="/tags/react-router-dom/">
+                                    <span class="chip bg-color">react-router-dom</span>
                                 </a>
                             
                         </div>
@@ -886,9 +714,56 @@ export default App;</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/07/02/react-router-dom-privateroute-lu-you/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="react-router-dom PrivateRoute路由">
+                        
+                        <span class="card-title">react-router-dom PrivateRoute路由</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            tttcpw
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/react-router-dom/">
+                        <span class="chip bg-color">react-router-dom</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/06/28/vue2-element-ui-qian-duan-jia-fen-ye/">
                     <div class="card-image">
@@ -906,9 +781,9 @@ export default App;</code></pre>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -922,51 +797,6 @@ export default App;</code></pre>
                     
                     <a href="/tags/vue2-element-ui/">
                         <span class="chip bg-color">vue2 element-ui</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/02/16/react-router-dom-v6-geng-xin-jian-dan-zhang-wo/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="React-Router-dom V6 更新简单掌握">
-                        
-                        <span class="card-title">React-Router-dom V6 更新简单掌握</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-16
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            tttcpw
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/React/">
-                        <span class="chip bg-color">React</span>
                     </a>
                     
                 </div>

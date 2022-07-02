@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>react-router-dom PrivateRoute路由</title>
+      <link href="2022/07/02/react-router-dom-privateroute-lu-you/"/>
+      <url>2022/07/02/react-router-dom-privateroute-lu-you/</url>
+      
+        <content type="html"><![CDATA[<h3 id="react-router-dom-V5-配置路由守卫组件遇到的问题-："><a href="#react-router-dom-V5-配置路由守卫组件遇到的问题-：" class="headerlink" title="react-router-dom V5 配置路由守卫组件遇到的问题 ："></a>react-router-dom V5 配置路由守卫组件遇到的问题 ：</h3><p>不多说什么，今天在练习typeScript 中遇到了路由守卫的问题，下面放代码。</p><pre class=" language-tsx"><code class="language-tsx">// PrivateRoute.tsximport { Route, Redirect, RouteProps } from 'react-router-dom';import { hasToken } from '@/utils/storage'export interface PrivateRouteProps extends RouteProps  {  component: React.ComponentType<any>}export const PrivateRoute = (props: PrivateRouteProps) => {  let { component: Component, ...rest } = props;  return (  <Route  {...rest}  render={props =>  hasToken() ? <Component {...props} /> : <Redirect to='/login' />}  />)}</code></pre><pre class=" language-tsx"><code class="language-tsx">// app.tsx<PrivateRoute path="/profile/edit" component={ProfileEdit} exact /></code></pre><p>但是我按上面的代码 c + v 后代码报错了，在我改了半天上图后发现，就算是不报错，页码也会有问题，在我找我的前辈，前辈启动了他存的老代码时，运行不仅没有问题，页面也没问题，但是他给我写demo时，一样的代码，该报错报错，改完报错页码寄了。</p><p>在老大哥找到问题前，我只能使用笨方法，目前好像没什么问题 ，代码如下：</p><pre class=" language-tsx"><code class="language-tsx">// PrivateRoute.tsximport { hasToken } from '@/utils/storage'import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom'export default function PrivateRoute(porps: RouteProps) {  const location = useLocation()  return (    hasToken() ? <Route {...porps} /> : <Redirect to='/login' />  )}</code></pre><pre class=" language-tsx"><code class="language-tsx">// app.tsx// 可以使用component<PrivateRoute path="/profile/edit" component={ProfileEdit} exact />// 也可以使用children<PrivateRoute path="/profile/edit">  <ProfileEdit></ProfileEdit></PrivateRoute></code></pre><p>目前感觉应该是版本问题，但是什么时候 RouteProps 中的 render 变成这个样子？等老大哥和兄弟们找到原因我肯定会水一水。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> react-router-dom </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue2 element-ui 前端假分页</title>
       <link href="2022/06/28/vue2-element-ui-qian-duan-jia-fen-ye/"/>
       <url>2022/06/28/vue2-element-ui-qian-duan-jia-fen-ye/</url>
