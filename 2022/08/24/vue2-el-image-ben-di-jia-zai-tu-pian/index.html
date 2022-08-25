@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="chengpengwei">
+    <meta name="keywords" content="vue2 el-image 本地加载图片, chengpengwei">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>chengpengwei</title>
+    <title>vue2 el-image 本地加载图片 | chengpengwei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <!-- <link rel="stylesheet" type="text/css" href="https://www.example.com/path/to/waifu.css" />应该不是，但是万一 -->
     <link rel="stylesheet" type="text/css" href="/css/waifu.min.css" />
@@ -396,12 +396,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">vue2 el-image 本地加载图片</h1>
                 </div>
             </div>
         </div>
@@ -516,9 +516,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/vue2/">
+                                <span class="chip bg-color">vue2</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -530,28 +534,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-22
+                    2022-08-24
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-11-22
+                    2022-08-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    508
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -566,7 +570,81 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h3 id="如何在项目中使用element-ui-中的-el-image-展示图片并点击图片开启幻灯片模式"><a href="#如何在项目中使用element-ui-中的-el-image-展示图片并点击图片开启幻灯片模式" class="headerlink" title="如何在项目中使用element ui 中的 el-image 展示图片并点击图片开启幻灯片模式"></a>如何在项目中使用element ui 中的 el-image 展示图片并点击图片开启幻灯片模式</h3><h5 id="1-本地常量的准备"><a href="#1-本地常量的准备" class="headerlink" title="1.本地常量的准备"></a>1.本地常量的准备</h5><p>因为图片比较多，而且图片也分为展示的简图和详情大图，所以直接在常量中记录图片的名称。</p>
+<pre class=" language-jsx"><code class="language-jsx"><span class="token comment" spellcheck="true">// contents index.js</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> imagesArr <span class="token operator">=</span> <span class="token punctuation">{</span>
+    one<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        key<span class="token punctuation">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span>
+        smallSrc<span class="token punctuation">:</span> <span class="token string">'small_image_one'</span><span class="token punctuation">,</span>
+        bigImagesArr<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'big_image_one_1'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    two<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        key<span class="token punctuation">:</span> <span class="token string">'2'</span><span class="token punctuation">,</span>
+        smallSrc<span class="token punctuation">:</span> <span class="token string">'small_image_two'</span><span class="token punctuation">,</span>
+        bigImagesArr<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'big_image_two_1'</span><span class="token punctuation">,</span> <span class="token string">'big_image_two_2'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+</code></pre>
+<h5 id="2-在请求中获取对应的key"><a href="#2-在请求中获取对应的key" class="headerlink" title="2.在请求中获取对应的key"></a>2.在请求中获取对应的key</h5><p>这部分只要是判断需不需要展示。</p>
+<pre class=" language-jsx"><code class="language-jsx"><span class="token comment" spellcheck="true">//  page/layOut/custInfo.vue</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> imagesArr <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./contents'</span>
+computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    isShowImage <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> key <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>custInfo<span class="token punctuation">.</span>labelImage
+        <span class="token keyword">let</span> arr <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">values</span><span class="token punctuation">(</span>imagesArr<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>item <span class="token operator">=</span><span class="token operator">></span> item<span class="token punctuation">.</span>key <span class="token operator">===</span> key<span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>arr<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token punctuation">{</span> smallSrc<span class="token punctuation">,</span> bigImagesArr <span class="token punctuation">}</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>custSmallImage <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`../../../assets/image/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>smallSrc<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>custImagesArr <span class="token operator">=</span> bigImagesArr<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>item <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`../../../assets/image/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>item<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> arr<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>因为我这里的图片只会展示一张简图，所以我直接解构过滤出来的数组，但是展示的大图可能会有多张，所以<code>custImagesArr </code>要map处理一下。</p>
+<h5 id="3-在模板上使用"><a href="#3-在模板上使用" class="headerlink" title="3.在模板上使用"></a>3.在模板上使用</h5><pre class=" language-jsx"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-popover</span>
+    <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>isShowImage<span class="token punctuation">'</span></span>
+    <span class="token attr-name">placement</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top-start<span class="token punctuation">"</span></span>
+    <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>标题<span class="token punctuation">"</span></span>
+    <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>200<span class="token punctuation">"</span></span>
+    <span class="token attr-name">trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hover<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-image</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span> <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">100</span>px</span><span class="token punctuation">"</span></span> <span class="token attr-name">:src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>custSmallImage<span class="token punctuation">"</span></span> <span class="token attr-name">:preview-src-list</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>custImagesArr<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>el-icon-user-solid<span class="token punctuation">'</span></span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>reference<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>hover 激活<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-popover</span><span class="token punctuation">></span></span>
+
+</code></pre>
+<p>正常情况下，这已经可以了，但是如果用户在移动到 <code>i</code>标签时，展示简图，点击简图展示大图后，关闭幻灯片模式，简图仍然显示，而且必须要鼠标再次移动到简图上再移出简图，图片才不显示，不是符合我心中的效果。</p>
+<pre class=" language-jsx"><code class="language-jsx">components<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token string">'el-image-viewer'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'element-ui/packages/image/src/image-viewer'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-jsx"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-popover</span>
+    <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>isShowImage<span class="token punctuation">'</span></span>
+    <span class="token attr-name">placement</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top-start<span class="token punctuation">"</span></span>
+    <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>标题<span class="token punctuation">"</span></span>
+    <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>200<span class="token punctuation">"</span></span>
+    <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>custImageLabel<span class="token punctuation">'</span></span>
+    <span class="token attr-name">trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hover<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-image</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span> <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">100</span>px</span><span class="token punctuation">"</span></span> <span class="token attr-name">:src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>custSmallImage<span class="token punctuation">"</span></span> <span class="token attr-name">@click</span> <span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>handleClick<span class="token punctuation">'</span></span> <span class="token punctuation">/></span>
+    <span class="token attr-name">&lt;el-image-viewer</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">='</span><span class="token attr-value"><span class="token property">color</span><span class="token punctuation">:</span> <span class="token hexcode">#fff</span></span><span class="token punctuation">'</span></span> <span class="token attr-name">:url-list</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>custImagesArr<span class="token punctuation">'</span></span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>isShowBigImage<span class="token punctuation">'</span></span> <span class="token attr-name">:on-close</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>handleClose<span class="token punctuation">'</span></span> <span class="token punctuation">/></span>
+    <span class="token attr-name">&lt;i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>el-icon-user-solid<span class="token punctuation">'</span></span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>reference<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>hover 激活<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-popover</span><span class="token punctuation">></span></span>
+
+
+    method<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        handleClick <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>isShowBigImage <span class="token operator">=</span> <span class="token boolean">true</span>
+        <span class="token punctuation">}</span>
+        handleClose <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>isShowBigImage <span class="token operator">=</span> <span class="token boolean">false</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>$refs<span class="token punctuation">.</span>custImageLabel<span class="token punctuation">.</span><span class="token function">doClose</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
+<p>使用<code>el-image-viewer</code>组件创建大图，在data中新建isShowBigImage控制大图的显示和隐藏。<code>url-list</code>是展示的图片的数组，关闭事件<code>on-close</code>触发关闭el-popover简图</p>
+
             </div>
             <hr/>
 
@@ -591,7 +669,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://tttcpw.github.io/aboutme/index.html">https://tttcpw.github.io/aboutme/index.html</a>
+                    <a href="https://tttcpw.github.io/2022/08/24/vue2-el-image-ben-di-jia-zai-tu-pian/">https://tttcpw.github.io/2022/08/24/vue2-el-image-ben-di-jia-zai-tu-pian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -628,7 +706,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/vue2/">
+                                    <span class="chip bg-color">vue2</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -673,13 +755,13 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/aboutme/index.html">
+                <a href="/2022/08/24/vue2-el-image-ben-di-jia-zai-tu-pian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="vue2 el-image 本地加载图片">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">vue2 el-image 本地加载图片</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -690,7 +772,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-24
                             </span>
                         <span class="publish-author">
                             
@@ -702,22 +784,30 @@
                 </div>
 
                 
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/vue2/">
+                        <span class="chip bg-color">vue2</span>
+                    </a>
+                    
+                </div>
+                
             </div>
         </div>
         
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/aboutme/index.html">
+                <a href="/2022/07/23/react-router-dom-v6-zai-lei-zu-jian-he-js-zhong-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="react-router-dom V6 在类组件和js中使用">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">react-router-dom V6 在类组件和js中使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -728,7 +818,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-23
                             </span>
                         <span class="publish-author">
                             
@@ -738,7 +828,14 @@
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/react-router-dozy/">
+                        <span class="chip bg-color">react-router-dozy</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
